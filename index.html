@@ -22,7 +22,7 @@
     <input type="text" ng-model="tweetMessage">
     <div class="tweet-button" ng-click="render()" ng-show="tweetMessage">Render tweet button</div>
     <div class="tweet-button" ng-click="hideRendering()">Hide tweet button</div>
-    <div tweet-it="[[data.text]]" ng-if="data.text"></div>
+    <div tweet-it="data.text" ng-if="data.text"></div>
 
     <!-- Pre-load twitter link -->
     <script type="text/ng-template" id="twitter-tweet">
@@ -60,7 +60,7 @@
     link: function(scope, element, attrs) {
       attrs.$observe('tweetIt', function(newValue){
         var data = $templateCache.get('twitter-tweet');
-        scope.data.text = scope.$eval(newValue)[0][0];
+        scope.data.text = scope.$eval(newValue);
         element.html(data);
         $compile(element.contents())(scope);
         if ($window.hasOwnProperty('twttr')) {
